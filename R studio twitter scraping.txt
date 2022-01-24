@@ -1,0 +1,44 @@
+#set the enviroment where to store and handle data
+setwd("~/")
+
+#necessary application, arguements, packages, algorithms, sciences that operate in the background to make this possible
+install.packages(c("twitteR", "writexl", "purrr", "dplyr", "stringr", "jsonlite", "httr", "rtweet", "academictwitteR"), dependencies=TRUE)
+
+#upload those things into this space
+library(twitteR)
+library(writexl)
+library(purrr)
+library(stringr)
+library(jsonlite)
+library(httr)
+library(rtweet)
+library(academictwitteR)
+
+#special key twitter assigns you, which you can apply for thorugh developer twiterr as normal, professional, or academic- this space is utilizing an
+set_bearer()
+
+#query Twitter API, set language, specific word, start and end times, limit amount to pull
+tweets1 <-
+  get_all_tweets(lang = "en",
+    query = c( "YOUR SPECIFIC WORD"),
+    start_tweets = "2021-01-01T00:00:00Z",
+    end_tweets = "2021-04-30T00:00:00Z",
+    n = 1000000,
+  )
+
+#convert semi structured data to a data frame (structured)
+tweets1.df <-as.data.frame(tweets1)
+
+#convert data frame to xls (more familair data structure)
+write_xlsx(tweets1.df, "FILE NAME THAT WILL BE PUT INTO WHERE YOU ASSIGNED YOUR WORKING DIRECTORY AT THE BEGINNING")
+
+#repeat be sure to rename the specific things in the code!
+tweets2 <-
+  get_all_tweets(lang = "en",
+      query = c( "YOUR SPECIFIC WORD"),
+      start_tweets = "2021-01-01T00:00:00Z",
+      end_tweets = "2021-04-30T00:00:00Z",
+      n = 1000000,
+  )
+tweets2.df <-as.data.frame(tweets2)
+write_xlsx(tweets2.df, "FILE NAME THAT WILL BE PUT INTO WHERE YOU ASSIGNED YOUR WORKING DIRECTORY AT THE BEGINNING")
